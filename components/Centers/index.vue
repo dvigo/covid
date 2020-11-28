@@ -8,14 +8,8 @@
       .button
         v-btn.font-weight-black(color='primary' type="submit") Enviar
     div(color="white")
-      v-text-field(append-icon="search" label="Filter" single-line hide-details v-model="search" @keyup="filterCentros()")
-      v-data-table(:headers="headers" :items="filterCentros()" class="elevation-1")
-        template(v-slot:items="props")
-          td {{ props.item.name }}
-          td.text-xs-right {{ props.item.location }}
-          td.text-xs-right {{ props.item.name }}
-          td.text-xs-right {{ props.item.website }}
-          td.text-xs-right {{ props.item.contact_methods }}
+      v-text-field.textbox(append-icon="search" label="Filter" single-line hide-details v-model="search" @keyup="filterCentros()")
+      v-data-table(:headers="headers" :items="filterCentros()" class="elevation-1" light)
 </template>
 
 <script>
@@ -32,7 +26,7 @@ export default {
       },
       headers: [
         { text: 'Población', value: 'location' },
-        { text: 'Name', value: 'name' },
+        { text: 'Nombre', value: 'name' },
         { text: 'Web', value: 'web' },
         { text: 'Contacto', value: 'contact_methods' }
       ]

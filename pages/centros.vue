@@ -1,6 +1,5 @@
 <template lang="pug">
   v-app
-    Navbar
     Centers
 </template>
 
@@ -9,7 +8,6 @@
   import Centers from '~/components/Centers/index.vue'
 
   export default {
-    layout: 'app',
     components: {
       Navbar,
       Centers
