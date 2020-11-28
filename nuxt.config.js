@@ -66,7 +66,7 @@ export default {
         endpoints: {
           login: { url: '/login', method: 'post', propertyName: 'access_token'},
           refresh: { url: '/auth/refresh', method: 'post' },
-          user: { url: '/users/me', method: 'get' },
+          user: { url: '/users/me', method: 'get', propertyName: false },
           logout: { url: '/logout', method: 'post' }
         },
         // autoLogout: false
