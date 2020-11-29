@@ -10,10 +10,10 @@
         nuxt
     v-navigation-drawer(v-model="rightDrawer" :right="right" temporary fixed)
       v-list
-        v-list-item(v-for="item in items" :href="item.action")
-          v-list-item-content {{ item.title}}
+        v-list-item(v-for="item in items" :href="item.action" :target="(item.target) ? item.target : ''")
           v-list-item-icon(v-if="item.icon")
             v-icon {{ item.icon }}
+          v-list-item-content {{ item.title}}
     v-footer(
       :absolute="!fixed"
       app
@@ -30,20 +30,40 @@ export default {
       fixed: false,
       items: [
         {
+          title: 'Estadísticas',
+          action: 'dashboard',
+          icon: 'mdi-chart-bell-curve'
+        },
+        {
+          title: 'Notícias',
+          action: 'news',
+          icon: 'mdi-newspaper-variant'
+        },
+        {
           title: 'Encuentra tu centro',
-          action: 'centros'
+          action: 'centros',
+          icon: 'mdi-hospital-building'
         },
         {
           title: 'Preguntas Frecuentes',
-          action: 'faqs'
+          action: 'faqs',
+          icon: 'mdi-comment-question'
+        },
+        {
+          title: 'CovidBot',
+          action: 'bot',
+          icon: 'mdi-robot'
         },
         {
           title: 'Contacta',
           action: 'https://api.whatsapp.com/send?phone=553432424&text=Covid%20Information',
-          icon: 'mdi-whatsapp'
+          icon: 'mdi-whatsapp',
+          target: "_blank"
         },
         {
-          title: 'RadarCovid'
+          title: 'RadarCovid',
+          action: 'radar',
+          icon: 'mdi-radar'
         }
       ],
       miniVariant: false,
