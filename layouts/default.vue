@@ -11,7 +11,9 @@
     v-navigation-drawer(v-model="rightDrawer" :right="right" temporary fixed)
       v-list
         v-list-item(v-for="item in items" :href="item.action")
-         | {{ item.title}}
+          v-list-item-content {{ item.title}}
+          v-list-item-icon(v-if="item.icon")
+            v-icon {{ item.icon }}
     v-footer(
       :absolute="!fixed"
       app
@@ -34,6 +36,11 @@ export default {
         {
           title: 'Preguntas Frecuentes',
           action: 'faqs'
+        },
+        {
+          title: 'Contacta',
+          action: 'https://api.whatsapp.com/send?phone=553432424&text=Covid%20Information',
+          icon: 'mdi-whatsapp'
         },
         {
           title: 'RadarCovid'
