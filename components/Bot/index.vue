@@ -19,7 +19,10 @@ import coronaJPG from '~/assets/img/corona.jpg'
 export default {
   data () {
     return {
-      messages: [
+      messages: [{
+        user: 'CovidBot',
+        content: 'Bienvenido, ¿en que puedo ayudarte?'
+      }  
       ],
       username: 'Tú',
       coronaJPG,
