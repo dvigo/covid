@@ -42,7 +42,6 @@ export default {
     add () {
       event.preventDefault()
       this.$axios.$post('/medical_centers', this.medicalCenter)
-
     },
     filterCentros() {
       return this.centros.filter(c => {
