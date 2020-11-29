@@ -10,11 +10,8 @@
         nuxt
     v-navigation-drawer(v-model="rightDrawer" :right="right" temporary fixed)
       v-list
-        v-list-item(@click.native="right = !right")
-          v-list-item-action
-            v-icon(light)
-              |  mdi-repeat
-          v-list-item-title Switch drawer (click me)
+        v-list-item(v-for="item in items" :href="item.action")
+         | {{ item.title}}
     v-footer(
       :absolute="!fixed"
       app
@@ -31,20 +28,21 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          title: 'Encuentra tu centro',
+          action: 'centros'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'Preguntas Frecuentes',
+          action: 'faqs'
+        },
+        {
+          title: 'RadarCovid'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Covid4U'
     }
   }
 }
