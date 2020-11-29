@@ -10,10 +10,18 @@
         nuxt
     v-navigation-drawer(v-model="rightDrawer" :right="right" temporary fixed)
       v-list
+        v-list-item(v-if="!isAuthenticated" href="login")
+          v-list-item-icon
+            v-icon mdi-account
+          v-list-item-content Acceder
         v-list-item(v-for="item in items" :href="item.action" :target="(item.target) ? item.target : ''")
           v-list-item-icon(v-if="item.icon")
             v-icon {{ item.icon }}
           v-list-item-content {{ item.title}}
+        v-list-item(v-if="isAuthenticated" @click="logout")
+          v-list-item-icon
+            v-icon mdi-run-fast
+          v-list-item-content Salir
     v-footer(
       :absolute="!fixed"
       app
@@ -22,6 +30,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -70,6 +80,14 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Covid4U'
+    }
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  },
+  methods: {
+    logout () {
+      this.$auth.logout()
     }
   }
 }
