@@ -1,15 +1,26 @@
 <template lang="pug">
   div
-    v-form.login(@submit="add()")
-      input.input(placeholder="Localización" type="text" v-model="medicalCenter.location" ref="location")
-      input.input(placeholder="Nombre" type="text" v-model="medicalCenter.name" ref="name")
-      input.input(placeholder="Web" type="text" v-model="medicalCenter.website" ref="website")
-      input.input(placeholder="Contacto" type="text" v-model="medicalCenter.contact_methods" ref="contact_methods")
-      .button
-        v-btn.font-weight-black(color='primary' type="submit") Enviar
+    v-dialog( v-model="dialog" max-width="600px" transition="dialog-bottom-transition")
+      template(v-slot:activator="{ on, attrs }")
+        v-btn.ask(color="primary" dark v-bind="attrs" v-on="on" )
+           | Añadir
+        h2 Centros
+      v-card
+        v-card-title
+          | Preguntar
+        v-card-text
+          v-form(@submit="add()")
+            v-text-field.input(placeholder="Localización" type="text" v-model="medicalCenter.location" ref="location")
+            v-text-field.input(placeholder="Nombre" type="text" v-model="medicalCenter.name" ref="name")
+            v-text-field.input(placeholder="Web" type="text" v-model="medicalCenter.website" ref="website")
+            v-text-field.input(placeholder="Contacto" type="text" v-model="medicalCenter.contact_methods" ref="contact_methods")
+        v-card-actions
+          v-spacer
+          v-btn(color="blue darken-1" text @click="add()")
+           | Añadir
     div(color="white")
       v-text-field.textbox(append-icon="search" label="Filter" single-line hide-details v-model="search" @keyup="filterCentros()")
-      v-data-table(:headers="headers" :items="filterCentros()" class="elevation-1" light)
+      v-data-table(:headers="headers" :items="filterCentros()" class="elevation-1" light :loading="loading")
 </template>
 
 <script>
@@ -18,6 +29,8 @@ export default {
     return {
       centros: [],
       search: '',
+      dialog: false,
+      loading: true,
       medicalCenter: {
         location: null,
         name: null,
@@ -37,11 +50,13 @@ export default {
   },
   methods: {
     async fetch () {
-      this.centros = await this.$axios.$get('/medical_centers')
+      this.centros = await this.$axios.$get('/medical_centers').then(this.loading = false)
     },
     add () {
       event.preventDefault()
-      this.$axios.$post('/medical_centers', this.medicalCenter)
+      this.$axios.$post('/medical_centers', this.medicalCenter).then(this.$forceUpdate()).then((res) => {
+        this.centros.push(this.medicalCenter)
+      }).then(this.dialog = false)
     },
     filterCentros() {
       return this.centros.filter(c => {
