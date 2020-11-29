@@ -10,7 +10,7 @@
               div.content
                 div(v-html="message.content")
         div.typer
-          input(type="text" placeholder="Escribe aquí.." v-on:keyup.enter="sendMessage" v-model="message")
+          v-text-field(filled clearable type="text" placeholder="Escribe aquí.." v-on:keyup.enter="sendMessage" v-model="message" append-icon="mdi-send" @click:append="sendMessage")
 </template>
 
 <script>
