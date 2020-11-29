@@ -45,7 +45,6 @@
             span 
               v-rating(:value="answer.user.answer_rating" background-color="indigo lighten-3" color="indigo" :dense="true" :hover="true" size="15" :id="answer.user.id" half-increments readonly)
         p.answerRight {{ answer.answer }}
-    v-btn(@click="logout()") SALIR
 </template>
 
 <script>
